@@ -12,8 +12,8 @@ public class AutomaDistributore implements State {
 
     @Override
     public void next(Event e) {
-        System.out.println("Siamo nello stato" + stato);
-        System.out.println("Ricevuto evento" + e);
+        System.out.println("Siamo nello stato " + stato);
+        System.out.println("Ricevuto evento " + e);
         stato.next(e);
         System.out.println("Siamo passati nello stato " + stato);
     }
@@ -31,12 +31,15 @@ public class AutomaDistributore implements State {
                     System.out.println("Soldi insufficienti");
                 } else if (tot >= 0.45f) {
                     stato = new Erogazione();
+                    tot = tot - 0.45f;
                 }
             } else if (e instanceof Resto) {
                 if (tot > 0) {
                     stato = new Attesa();
-                    System.out.println(tot);
+                    System.out.println("Il resto è di " + tot + " euro");
                     tot = 0f;
+                    System.out.println("Erogazione resto...");
+                    System.out.println("Il resto è di " + tot + " euro");
                 } else if (tot == 0) {
                     stato = new Attesa();
                 }
@@ -53,7 +56,6 @@ public class AutomaDistributore implements State {
         public void next(Event e) {
             if (e instanceof CaffèPronto) {
                 stato = new Pronto();
-                tot -= 0.45f;
             } else {
                 System.out.println("Errore");
             }
