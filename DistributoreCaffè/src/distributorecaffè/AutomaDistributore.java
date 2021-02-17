@@ -1,7 +1,5 @@
 package distributorecaffè;
 
-import jdk.jfr.Event;
-
 public class AutomaDistributore implements State {
 
     private State stato;
@@ -20,7 +18,6 @@ public class AutomaDistributore implements State {
 
         @Override
         public void next(Event e) {
-
             if (e instanceof Caffè) {
                 if (tot < 0.45f) {
                     stato = new Attesa();
@@ -40,14 +37,14 @@ public class AutomaDistributore implements State {
 
         @Override
         public void next(Event e) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            
         }
 
         private class Pronto implements State {
 
             @Override
             public void next(Event e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
             }
 
         }
