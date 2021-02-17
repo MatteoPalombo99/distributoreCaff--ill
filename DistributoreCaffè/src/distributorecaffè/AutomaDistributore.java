@@ -3,7 +3,8 @@ package distributorecaffè;
 public class AutomaDistributore implements State {
 
     private State stato;
-    float tot = 0.45f;
+    float soldi = 0.50f;
+    float tot;
 
     public AutomaDistributore() {
         stato = new Attesa();
@@ -18,14 +19,25 @@ public class AutomaDistributore implements State {
 
         @Override
         public void next(Event e) {
-            if (e instanceof Caffè) {
+            if (e instanceof Soldi) {
+                stato = new Attesa();
+                tot += soldi;
+            } else if (e instanceof Caffè) {
                 if (tot < 0.45f) {
                     stato = new Attesa();
-                    System.out.println("Inserire almeno € 0.45");
-                } else if (tot > 0.45f) {
+                    System.out.println("Soldi insufficienti");
+                } else if (tot >= 0.45f) {
                     stato = new Erogazione();
+                    tot= tot - 0.45f;
                 }
-
+            } else if (e instanceof Resto) {
+                if (tot > 0) {
+                    stato = new Attesa();
+                    System.out.println(tot);
+                    tot = 0f;
+                } else if (tot == 0) {
+                    stato = new Attesa();
+                }
             } else {
                 System.out.println("Errore");
             }
@@ -37,7 +49,7 @@ public class AutomaDistributore implements State {
 
         @Override
         public void next(Event e) {
-            
+
         }
 
         private class Pronto implements State {
