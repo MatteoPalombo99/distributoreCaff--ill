@@ -28,7 +28,6 @@ public class AutomaDistributore implements State {
                     System.out.println("Soldi insufficienti");
                 } else if (tot >= 0.45f) {
                     stato = new Erogazione();
-                    tot= tot - 0.45f;
                 }
             } else if (e instanceof Resto) {
                 if (tot > 0) {
@@ -49,16 +48,21 @@ public class AutomaDistributore implements State {
 
         @Override
         public void next(Event e) {
-
-        }
-
-        private class Pronto implements State {
-
-            @Override
-            public void next(Event e) {
-
+            if (e instanceof CaffèPronto) {
+                stato = new Pronto();
+                tot -= 0.45f;
+            } else {
+                System.out.println("Errore");
             }
+        }
+    }
+
+    private class Pronto implements State {
+
+        @Override
+        public void next(Event e) {
 
         }
+
     }
 }
