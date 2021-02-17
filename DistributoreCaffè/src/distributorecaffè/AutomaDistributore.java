@@ -12,7 +12,10 @@ public class AutomaDistributore implements State {
 
     @Override
     public void next(Event e) {
+        System.out.println("Siamo nello stato" + stato);
+        System.out.println("Ricevuto evento" + e);
         stato.next(e);
+        System.out.println("Siamo passati nello stato " + stato);
     }
 
     private class Attesa implements State {
@@ -61,8 +64,11 @@ public class AutomaDistributore implements State {
 
         @Override
         public void next(Event e) {
-
+            if (e instanceof Ritiro) {
+                stato = new Attesa();
+            } else {
+                System.out.println("Errore");
+            }
         }
-
     }
 }
