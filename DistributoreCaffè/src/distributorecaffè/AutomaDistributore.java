@@ -37,7 +37,6 @@ public class AutomaDistributore implements State {
                     System.out.println("Il resto è di " + tot + " euro");
                     tot = 0;
                     System.out.println("Erogazione resto...");
-                    System.out.println("Il resto è di " + tot + " euro");
                 } else {
                     System.out.println("Nessun resto da dare.");
                 }
